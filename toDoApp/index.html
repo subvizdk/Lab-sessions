@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        .todo-container {
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h1>To Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button class ="add-btn" onclick="addTask()">Add Task</button>
+        <ul class ="todo.list" id="todoList"> </ul>
+    </div>
+    <script>
+    // Function to add a task
+function addTask() {
+    const input = document.getElementById("taskInput");
+    const taskText = input.value.trim();
+
+    if (taskText !== "") {
+        const ul = document.getElementById("todoList");
+
+        // Create new list item
+        const li = document.createElement("li");
+
+        // Create task text element
+        const span = document.createElement("span");
+        span.textContent = taskText;
+
+        // Create edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.onclick = () => editTask(span);
+
+        // Create remove button
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Delete";
+        removeButton.onclick = () => removeTask(li);
+
+        // Append buttons and text to the list item
+        li.appendChild(span);
+        li.appendChild(editButton);
+        li.appendChild(removeButton);
+
+        // Append list item to the list
+        ul.appendChild(li);
+
+        // Clear the input field
+        input.value = "";
+    }
+    else {
+            alert("Please enter a valid task.");
+        }
+} 
+
+// Function to edit a task
+function editTask(span) {
+    // Prompt user for new task text
+    const newTaskText = prompt("Edit your task:", span.textContent);
+    // Update the task text if not null or empty
+    if (newTaskText !== null && newTaskText.trim() !== "") {
+        span.textContent = newTaskText.trim();
+    } else {
+        alert("Task cannot be empty.");
+    }
+}
+// Function to remove a task
+function removeTask(task) {
+const ul = document.getElementById("todoList"); 
+ul.removeChild(task); 
+}   
+
+</script>
+
+</body>
